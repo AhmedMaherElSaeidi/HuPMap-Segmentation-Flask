@@ -39,9 +39,9 @@ The goal is to segment instances of microvascular structures, including capillar
 ## Installation
 To install the project dependencies, run the following command:
 
-\```bash
+```bash
 pip install -r requirements.txt
-\```
+```
 
 This command will install all the necessary packages listed in the `requirements.txt` file.
 

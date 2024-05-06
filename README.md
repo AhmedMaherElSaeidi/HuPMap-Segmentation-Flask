@@ -45,9 +45,6 @@ pip install -r requirements.txt
 
 This command will install all the necessary packages listed in the `requirements.txt` file.
 
-
-This command will install all the necessary packages listed in the `requirements.txt` file.
-
 ### Additional Setup
 
 To ensure the project runs smoothly, please follow these steps:

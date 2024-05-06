@@ -1,0 +1,5 @@
+venv
+model/weights/*
+!model/weights/
+static/images/*
+!static/images/

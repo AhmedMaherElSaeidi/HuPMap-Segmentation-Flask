@@ -1,6 +1,6 @@
 from routes.prediction_routes import prediction_route
+from utilities.utility import prone_static_dir
 from globals import HOST, PORT, DEBUG
-from utility import prone_static_dir
 from flask_cors import CORS
 from flask import Flask
 

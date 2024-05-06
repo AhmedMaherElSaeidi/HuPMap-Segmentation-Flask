@@ -1,0 +1,7 @@
+{
+  "models": {
+    "unet": "model/weights/unet_weights.weights.h5",
+    "linknet": "path/to/linknet_weights.h5",
+    "fcn": "path/to/fcn_weights.h5"
+  }
+}

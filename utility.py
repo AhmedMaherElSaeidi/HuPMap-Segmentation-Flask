@@ -1,5 +1,6 @@
 from globals import HOST, PORT
 import numpy as np
+import json
 import cv2
 import os
 
@@ -33,6 +34,19 @@ def save_images(image, mask, overlay, static_path):
     return dict(image="http://{}:{}/{}".format(HOST, PORT, biomedical_image_path),
                 mask="http://{}:{}/{}".format(HOST, PORT, biomedical_mask_path),
                 overlay="http://{}:{}/{}".format(HOST, PORT, biomedical_overlay_path))
+
+
+def get_model_path(model_name):
+    json_file_path = "model_weights.json"
+
+    # Read the JSON file
+    with open(json_file_path, "r") as json_file:
+        data = json.load(json_file)
+
+    # Access model paths
+    model_weights_path = data["models"][model_name]
+
+    return model_weights_path
 
 
 def prone_static_dir(folder_path):

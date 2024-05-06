@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from utility import get_model_path
 
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['SM_FRAMEWORK'] = 'tf.keras'
@@ -7,7 +8,7 @@ import segmentation_models as sm
 
 
 class UnetSegmentationModel:
-    def __init__(self, backbone='efficientnetb5', weights_path='model/weights/sm_Unet_efficientnetb5_final.weights.h5'):
+    def __init__(self, backbone='efficientnetb5', weights_path=get_model_path('unet')):
         self.BACKBONE = backbone
         self.preprocess_input = sm.get_preprocessing(self.BACKBONE)
         self.model = sm.Unet(self.BACKBONE, encoder_weights='imagenet')

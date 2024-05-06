@@ -1,7 +1,7 @@
 {
   "models": {
     "unet": "model/weights/unet_weights.weights.keras",
-    "linknet": "path/to/linknet_weights.h5",
+    "linknet": "model/weights/linknet_weights.weights.keras",
     "fcn": "path/to/fcn_weights.h5"
   }
 }

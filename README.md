@@ -8,7 +8,7 @@ The goal is to segment instances of microvascular structures, including capillar
 - **Description:** API for predicting using the UNet model.
 - **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
 - **Output:**
-  - 4 paths for the `image`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
+  - 4 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
   - 2 score metrics to indicate confidence `IOU`, and `Dice`.
   - Finally, the `threshold` at which the `predicted_mask` was binarized.
 
@@ -16,7 +16,7 @@ The goal is to segment instances of microvascular structures, including capillar
 - **Description:** API for predicting using LinkNet model.
 - **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
 - **Output:**
-  - 4 paths for the `image`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
+  - 4 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
   - 2 score metrics to indicate confidence `IOU`, and `Dice`.
   - Finally, the `threshold` at which the `predicted_mask` was binarized.
 
@@ -24,7 +24,7 @@ The goal is to segment instances of microvascular structures, including capillar
 - **Description:** API for predicting using FCN model.
 - **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
 - **Output:**
-  - 4 paths for the `image`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
+  - 4 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
   - 2 score metrics to indicate confidence `IOU`, and `Dice`.
   - Finally, the `threshold` at which the `predicted_mask` was binarized.
 
@@ -32,14 +32,14 @@ The goal is to segment instances of microvascular structures, including capillar
 - **Description:** API for predicting using an ensemble of models.
 - **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
 - **Output:**
-  - 4 paths for the `image`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
+  - 4 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
   - 2 score metrics to indicate confidence `IOU`, and `Dice`.
   - Finally, the `threshold` at which the `predicted_mask` was binarized.
 
 ## Installation
 To install the project dependencies, run the following command:
 
-```bash
+```
 pip install -r requirements.txt
 ```
 

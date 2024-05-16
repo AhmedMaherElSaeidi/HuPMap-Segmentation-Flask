@@ -63,7 +63,7 @@ def predict_unet():
         binary_mask = binary_mask.astype(np.uint8)
 
         # Set the response dictionary
-        response = save_images(static_path, image, binary_mask, prediction, threshold=threshold)
+        response = save_images(static_path, image, binary_mask, prediction)
         response.update({
             "iou_score": iou_score(y_true=binary_mask, y_hat=prediction),
             "dice_score": dice_score(y_true=binary_mask, y_hat=prediction),

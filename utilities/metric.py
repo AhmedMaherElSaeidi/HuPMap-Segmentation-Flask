@@ -24,18 +24,18 @@ def dice_score(y_true, y_hat):
     dice_list = []
 
     for k in range(y_hat.shape[0]):
-        TP = np.sum((y_true[k] == 1) & (y_hat[k] == 1))
-        FP = np.sum((y_true[k] == 0) & (y_hat[k] == 1))
-        FN = np.sum((y_true[k] == 1) & (y_hat[k] == 0))
+        tp = np.sum((y_true[k] == 1) & (y_hat[k] == 1))
+        fp = np.sum((y_true[k] == 0) & (y_hat[k] == 1))
+        fn = np.sum((y_true[k] == 1) & (y_hat[k] == 0))
 
-        denominator = 2 * TP + FP + FN
+        denominator = 2 * tp + fp + fn
 
         # Handle the case when the denominator is zero
         if denominator == 0:
             dice = 1  # Return 1, indicating perfect agreement
         else:
             # Calculate Dice coefficient
-            dice = (2 * TP) / denominator
+            dice = (2 * tp) / denominator
 
         dice_list.append(dice)
 

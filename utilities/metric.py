@@ -1,6 +1,21 @@
 import numpy as np
 
 
+# calculate IoU, and Dice
+def calculate_metrics(y_true, y_pred):
+    # True Positives, False Positives, False Negatives
+    tp = np.sum((y_true == 1) & (y_pred == 1))
+    fp = np.sum((y_true == 0) & (y_pred == 1))
+    fn = np.sum((y_true == 1) & (y_pred == 0))
+
+    # Dice coefficient, and Intersection over Union (IoU)
+    denominator = tp + fp + fn
+    dice = (2 * tp) / (2 * denominator) if denominator != 0 else 1
+    iou = tp / denominator if denominator != 0 else 1
+
+    return iou, dice
+
+
 # calculate IoU from predicted prob
 def iou_score(y_true, y_hat):
     score_list = []

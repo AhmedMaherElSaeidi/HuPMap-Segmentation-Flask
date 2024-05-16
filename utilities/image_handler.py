@@ -7,10 +7,11 @@ def overlay_image(image, mask, opacity=0.8):
     if np.max(mask) == 0:
         return image.astype(np.uint8)  # Return the original image if the mask is blank (all zeros)
 
-    mask_adjusted = mask * 255
-    alpha = mask_adjusted[:, :, 0] * opacity  # Extract the single channel from the mask & Adjust the opacity
+    mask_normalized = mask.astype(float) / np.max(mask)
+    alpha = mask_normalized[:, :, 0] * opacity  # Extract the single channel from the mask & Adjust the opacity by
+    # multiplying with a factor
     alpha = alpha[:, :, np.newaxis]  # Add a third dimension to make it compatible with the image
-    result = alpha * mask_adjusted + (1 - alpha) * image
+    result = alpha * mask + (1 - alpha) * image
 
     return result.astype(np.uint8)
 
@@ -34,28 +35,28 @@ def save_images(static_path, kidney_image, true_mask, predicted_mask):
     biomedical_image_path = static_path + "_image.png"
     cv2.imwrite(biomedical_image_path, kidney_image)
 
-    # Getting our RGB masks ready
-    true_mask, predicted_mask, overlaid_mask = overlay_masks(true_mask, predicted_mask)
+    # Getting our images overlaid by masks ready
     overlaid_image_true = overlay_image(kidney_image, true_mask)
     overlaid_image_pred = overlay_image(kidney_image, predicted_mask)
 
-    # Save the true mask
-    biomedical_true_mask_path = static_path + "_true_mask.png"
-    cv2.imwrite(biomedical_true_mask_path, true_mask)
-
-    # Save the predicted mask
-    biomedical_predicted_mask_path = static_path + "_predicted_mask.png"
-    cv2.imwrite(biomedical_predicted_mask_path, predicted_mask)
-
-    # Save the overlaid masks
-    biomedical_overlaid_mask_path = static_path + "_overlaid_mask.png"
-    cv2.imwrite(biomedical_overlaid_mask_path, overlaid_mask)
-
-    # Save the overlaid images
+    # Save the overlaid images by masks
     biomedical_overlaid_image_true_path = static_path + "_overlaid_image_true.png"
     biomedical_overlaid_image_pred_path = static_path + "_overlaid_image_pred.png"
+
     cv2.imwrite(biomedical_overlaid_image_true_path, overlaid_image_true)
     cv2.imwrite(biomedical_overlaid_image_pred_path, overlaid_image_pred)
+
+    # Getting our RGB masks ready
+    true_mask, predicted_mask, overlaid_mask = overlay_masks(true_mask, predicted_mask)
+
+    # Save the true mask, predicted mask, and overlaid masks
+    biomedical_true_mask_path = static_path + "_true_mask.png"
+    biomedical_predicted_mask_path = static_path + "_predicted_mask.png"
+    biomedical_overlaid_mask_path = static_path + "_overlaid_mask.png"
+
+    cv2.imwrite(biomedical_true_mask_path, true_mask)
+    cv2.imwrite(biomedical_predicted_mask_path, predicted_mask)
+    cv2.imwrite(biomedical_overlaid_mask_path, overlaid_mask)
 
     return dict(image="http://{}:{}/{}".format(HOST, PORT, biomedical_image_path),
                 true_mask="http://{}:{}/{}".format(HOST, PORT, biomedical_true_mask_path),

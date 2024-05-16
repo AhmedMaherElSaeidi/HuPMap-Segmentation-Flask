@@ -1,6 +1,6 @@
 from model.linknet import LinknetSegmentationModel
 from utilities.image_handler import save_images
-from utilities.metric import calculate_metrics, iou_score, dice_score
+from utilities.metric import calculate_metrics
 from model.unet import UnetSegmentationModel
 from flask import Blueprint
 from flask import request
@@ -67,7 +67,7 @@ def predict_unet():
         metrics = calculate_metrics(binary_mask, prediction)
         response.update({
             "iou_score": metrics[0],
-            "dice_score": metrics[0],
+            "dice_score": metrics[1],
             "threshold": threshold*100
         })
 
@@ -127,7 +127,7 @@ def predict_linknet():
         metrics = calculate_metrics(binary_mask, prediction)
         response.update({
             "iou_score": metrics[0],
-            "dice_score": metrics[0],
+            "dice_score": metrics[1],
             "threshold": threshold*100
         })
 

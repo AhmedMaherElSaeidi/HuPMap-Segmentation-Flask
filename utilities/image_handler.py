@@ -33,7 +33,7 @@ def overlay_masks(y_true, y_hat):
 def save_images(static_path, kidney_image, true_mask, predicted_mask):
     # Save the kidney slide image
     biomedical_image_path = static_path + "_image.png"
-    cv2.imwrite(biomedical_image_path, kidney_image)
+    cv2.imwrite(biomedical_image_path, cv2.cvtColor(kidney_image, cv2.COLOR_RGB2BGR))
 
     # Getting our images overlaid by masks ready
     overlaid_image_true = overlay_image(kidney_image, true_mask)
@@ -43,8 +43,8 @@ def save_images(static_path, kidney_image, true_mask, predicted_mask):
     biomedical_overlaid_image_true_path = static_path + "_overlaid_image_true.png"
     biomedical_overlaid_image_pred_path = static_path + "_overlaid_image_pred.png"
 
-    cv2.imwrite(biomedical_overlaid_image_true_path, overlaid_image_true)
-    cv2.imwrite(biomedical_overlaid_image_pred_path, overlaid_image_pred)
+    cv2.imwrite(biomedical_overlaid_image_true_path, cv2.cvtColor(overlaid_image_true, cv2.COLOR_RGB2BGR))
+    cv2.imwrite(biomedical_overlaid_image_pred_path, cv2.cvtColor(overlaid_image_pred, cv2.COLOR_RGB2BGR))
 
     # Getting our RGB masks ready
     true_mask, predicted_mask, overlaid_mask = overlay_masks(true_mask, predicted_mask)

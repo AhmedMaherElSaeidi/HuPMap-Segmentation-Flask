@@ -2,6 +2,7 @@ import os
 import numpy as np
 from tensorflow.keras import layers, Model
 from utilities.utility import get_model_weights
+from utilities.metric import calculate_confidence
 
 
 class UNet:
@@ -84,16 +85,17 @@ class UNet:
 
         return model
 
-    def predict(self, image, threshold=None):
+    def predict(self, image, threshold=0.5):
         # Ensure the input image has the right shape for prediction
         if len(image.shape) == 3:
             image = np.expand_dims(image, axis=0)  # Add batch dimension if needed
 
         # Predict the probabilities for the input image
-        predictions = self.model.predict(image)
+        prediction = self.model.predict(image)[0]
+        confidence = calculate_confidence(prediction, threshold)
 
         # Process predictions as needed
         if threshold:
-            predictions = (predictions > threshold).astype(np.uint8)
+            prediction = (prediction > threshold).astype(np.uint8)
 
-        return predictions
+        return prediction, confidence

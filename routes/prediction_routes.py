@@ -41,7 +41,8 @@ def predict_unet():
         # Read the image file
         image_bytes = image_file.read()
         np_image = np.frombuffer(image_bytes, np.uint8)
-        image = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+        image = cv2.imdecode(np_image, cv2.IMREAD_UNCHANGED)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Read the mask file
         mask_bytes = mask_file.read()
@@ -58,7 +59,7 @@ def predict_unet():
         # time to make a prediction
         threshold = 0.5
         unet = UnetSegmentationModel()
-        prediction = unet.predict(image, threshold=threshold)[0]
+        prediction, _ = unet.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -97,7 +98,8 @@ def predict_linknet():
         # Read the image file
         image_bytes = image_file.read()
         np_image = np.frombuffer(image_bytes, np.uint8)
-        image = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+        image = cv2.imdecode(np_image, cv2.IMREAD_UNCHANGED)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Read the mask file
         mask_bytes = mask_file.read()
@@ -113,16 +115,12 @@ def predict_linknet():
 
         # time to make a prediction
         threshold = 0.5
-        unet = LinknetSegmentationModel()
-        prediction = unet.predict(image, threshold=threshold)[0]
-
-        # Make the mask binary for the next stages
-        binary_mask = np.where(mask == 255, 1, 0)
-        binary_mask = binary_mask.astype(np.uint8)
+        linknet = LinknetSegmentationModel()
+        prediction, _ = linknet.predict(image, threshold=threshold)
 
         # Set the response dictionary
-        response = save_images(static_path, image, binary_mask, prediction)
-        metrics = calculate_metrics(binary_mask, prediction)
+        response = save_images(static_path, image, mask, prediction)
+        metrics = calculate_metrics(mask, prediction)
         response.update({
             "iou_score": metrics[0],
             "dice_score": metrics[1],
@@ -157,7 +155,8 @@ def predict_fcn():
         # Read the image file
         image_bytes = image_file.read()
         np_image = np.frombuffer(image_bytes, np.uint8)
-        image = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+        image = cv2.imdecode(np_image, cv2.IMREAD_UNCHANGED)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Read the mask file
         mask_bytes = mask_file.read()
@@ -174,7 +173,7 @@ def predict_fcn():
         # time to make a prediction
         threshold = 0.5
         fcn = FCN()
-        prediction = fcn.predict(image, threshold=threshold)[0]
+        prediction, _ = fcn.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -213,7 +212,8 @@ def predict_unet_scratch():
         # Read the image file
         image_bytes = image_file.read()
         np_image = np.frombuffer(image_bytes, np.uint8)
-        image = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+        image = cv2.imdecode(np_image, cv2.IMREAD_UNCHANGED)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Read the mask file
         mask_bytes = mask_file.read()
@@ -230,7 +230,7 @@ def predict_unet_scratch():
         # time to make a prediction
         threshold = 0.5
         unet = UNet()
-        prediction = unet.predict(image, threshold=threshold)[0]
+        prediction, _ = unet.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -269,7 +269,8 @@ def predict_ensemble():
         # Read the image file
         image_bytes = image_file.read()
         np_image = np.frombuffer(image_bytes, np.uint8)
-        image = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
+        image = cv2.imdecode(np_image, cv2.IMREAD_UNCHANGED)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Read the mask file
         mask_bytes = mask_file.read()

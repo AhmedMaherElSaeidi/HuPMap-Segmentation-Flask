@@ -58,9 +58,10 @@ This command will install all the necessary packages listed in the `requirements
 
 To ensure the project runs smoothly, please follow these steps:
 
-1. **Weights Directory**: Create a directory named `weights` within the model directory. This directory should contain the weights of the three models (UNet, LinkNet, FCN). These weights are essential for the proper functioning of the project. Adjust the model weights file name to match the one in the `model_weights.json` file.
+1. **Weights Directory**: Create a directory named `weights` within the model directory. This directory should contain the weights of the four models (UNet, UNet Scratch, LinkNet, FCN). These weights are essential for the proper functioning of the project. Adjust the model weights file name to match the one in the `model_weights.json` file.
 
-    - **UNet Model Weights**: Download the UNet model weights from [here](https://www.kaggle.com/datasets/ahmedmaherelsaeidy/hupmap-unet-pretrained-weights).
+    - **UNet Model Weights**: Download the UNet model weights from [here](https://www.kaggle.com/datasets/ahmedmaherelsaeidy/unet-weights).
+    - **UNet Scratch Model Weights**: Download the LinkNet model weights from [here](http://example.com/linknet_weights).
     - **LinkNet Model Weights**: Download the LinkNet model weights from [here](http://example.com/linknet_weights).
     - **FCN Model Weights**: Download the FCN model weights from [here](http://example.com/fcn_weights).
 

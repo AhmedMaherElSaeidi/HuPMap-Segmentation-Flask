@@ -4,6 +4,7 @@
 The goal is to segment instances of microvascular structures, including capillaries, arterioles, and venules, to automate the segmentation of microvasculature structures to improve researchers' understanding of how the blood vessels are arranged in human tissues.
 
 ## APIs
+
 ### `/predict/unet`
 - **Description:** API for predicting using the UNet model.
 - **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
@@ -12,6 +13,14 @@ The goal is to segment instances of microvascular structures, including capillar
   - 2 score metrics to indicate confidence `IOU`, and `Dice`.
   - Finally, the `threshold` at which the `predicted_mask` was binarized.
 
+### `/predict/unet_scratch`
+- **Description:** API for predicting using a defined UNet model layers.
+- **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
+- **Output:**
+  - 6 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
+  - 2 score metrics to indicate confidence `IOU`, and `Dice`.
+  - Finally, the `threshold` at which the `predicted_mask` was binarized.
+  
 ### `/predict/linknet`
 - **Description:** API for predicting using LinkNet model.
 - **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.

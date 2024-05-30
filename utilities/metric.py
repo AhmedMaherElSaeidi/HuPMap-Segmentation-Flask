@@ -3,9 +3,11 @@ import numpy as np
 
 # calculate IoU, and Dice
 def calculate_metrics(y_true, y_pred):
-    # True Positives, False Positives, False Negatives
+
+    # True Positives, False Positives, False Negatives, True Negatives
     tp = np.sum((y_true == 1) & (y_pred == 1))
     fp = np.sum((y_true == 0) & (y_pred == 1))
+    tn = np.sum((y_true == 0) & (y_pred == 0))
     fn = np.sum((y_true == 1) & (y_pred == 0))
 
     # Dice coefficient
@@ -16,4 +18,19 @@ def calculate_metrics(y_true, y_pred):
     iou_denominator = tp + fp + fn
     iou = tp / iou_denominator if iou_denominator != 0 else 1
 
-    return iou, dice
+    # Precision
+    precision = tp / (tp + fp) if (tp + fp) != 0 else 1
+
+    # Recall
+    recall = tp / (tp + fn) if (tp + fn) != 0 else 1
+
+    # F1 Score
+    f1_score = 2 * ((precision * recall) / (precision + recall)) if (precision + recall) != 0 else 1
+
+    # Confidence
+    confidence_scores = y_pred.flatten()
+    binary_mask_flat = y_pred.flatten()
+    blood_vessel_confidences = confidence_scores[binary_mask_flat]
+    confidence = np.mean(blood_vessel_confidences)
+
+    return dice, iou, precision, recall, f1_score, confidence

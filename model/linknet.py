@@ -12,7 +12,9 @@ class LinknetSegmentationModel:
         self.BACKBONE = backbone
         self.preprocess_input = sm.get_preprocessing(self.BACKBONE)
         self.model = sm.Linknet(self.BACKBONE, encoder_weights='imagenet')
-        self.model.load_weights(weights_path)
+
+        if weights_path and os.path.exists(weights_path):
+            self.model.load_weights(weights_path)
 
     def preprocess_image(self, image):
         preprocessed_image = self.preprocess_input(image)

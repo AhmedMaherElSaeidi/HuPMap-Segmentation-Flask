@@ -12,7 +12,7 @@ class UnetSegmentationModel:
     def __init__(self, backbone='efficientnetb5', weights_path=get_model_weights('unet')):
         self.BACKBONE = backbone
         self.preprocess_input = sm.get_preprocessing(self.BACKBONE)
-        self.model = sm.Unet(self.BACKBONE, encoder_weights='imagenet')
+        self.model = sm.Unet(self.BACKBONE, encoder_weights=None)
 
         if weights_path and os.path.exists(weights_path):
             self.model.load_weights(weights_path)

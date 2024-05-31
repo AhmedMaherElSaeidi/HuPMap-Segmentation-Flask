@@ -1,7 +1,6 @@
 import os
 import numpy as np
 from utilities.utility import get_model_weights
-from utilities.metric import calculate_confidence
 
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['SM_FRAMEWORK'] = 'tf.keras'
@@ -31,10 +30,9 @@ class UnetSegmentationModel:
 
         # Predict the probabilities for the input image
         prediction = self.model.predict(preprocessed_image)[0]
-        confidence = calculate_confidence(prediction, threshold)
 
         # Process predictions as needed
         if threshold:
             prediction = (prediction > threshold).astype(np.uint8)
 
-        return prediction, confidence
+        return prediction

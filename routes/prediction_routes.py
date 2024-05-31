@@ -1,9 +1,10 @@
-from utilities.image_handler import save_images
-from utilities.metric import calculate_metrics
+from utilities.image_handler import save_images, apply_threshold
+from utilities.metric import calculate_metrics, get_best_thresh
 from model.linknet import LinknetSegmentationModel
 from model.unet import UnetSegmentationModel
 from model.unet_scratch import UNet
 from model.fcn import FCN
+from utilities.ensemble import average_ensemble
 from flask import Blueprint
 from flask import request
 import numpy as np
@@ -59,14 +60,14 @@ def predict_unet():
         # time to make a prediction
         threshold = 0.5
         unet = UnetSegmentationModel()
-        prediction, _ = unet.predict(image, threshold=threshold)
+        prediction = unet.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
         metrics = calculate_metrics(mask, prediction)
         response.update({
-            "iou_score": metrics[0],
-            "dice_score": metrics[1],
+            "iou_score": metrics[1],
+            "dice_score": metrics[0],
             "threshold": threshold * 100
         })
 
@@ -116,14 +117,14 @@ def predict_linknet():
         # time to make a prediction
         threshold = 0.5
         linknet = LinknetSegmentationModel()
-        prediction, _ = linknet.predict(image, threshold=threshold)
+        prediction = linknet.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
         metrics = calculate_metrics(mask, prediction)
         response.update({
-            "iou_score": metrics[0],
-            "dice_score": metrics[1],
+            "iou_score": metrics[1],
+            "dice_score": metrics[0],
             "threshold": threshold * 100
         })
 
@@ -173,14 +174,14 @@ def predict_fcn():
         # time to make a prediction
         threshold = 0.5
         fcn = FCN()
-        prediction, _ = fcn.predict(image, threshold=threshold)
+        prediction = fcn.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
         metrics = calculate_metrics(mask, prediction)
         response.update({
-            "iou_score": metrics[0],
-            "dice_score": metrics[1],
+            "iou_score": metrics[1],
+            "dice_score": metrics[0],
             "threshold": threshold * 100
         })
 
@@ -230,14 +231,14 @@ def predict_unet_scratch():
         # time to make a prediction
         threshold = 0.5
         unet = UNet()
-        prediction, _ = unet.predict(image, threshold=threshold)
+        prediction = unet.predict(image, threshold=threshold)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
         metrics = calculate_metrics(mask, prediction)
         response.update({
-            "iou_score": metrics[0],
-            "dice_score": metrics[1],
+            "iou_score": metrics[1],
+            "dice_score": metrics[0],
             "threshold": threshold * 100
         })
 
@@ -284,19 +285,33 @@ def predict_ensemble():
         if mask.ndim == 2:
             mask = np.expand_dims(mask, axis=-1)
 
-        # # time to make a prediction
-        # threshold = 0.5
-        # ...
-        #
-        # # Set the response dictionary
-        # response = save_images(static_path, image, mask, prediction)
-        # metrics = calculate_metrics(mask, prediction)
-        # response.update({
-        #     "iou_score": metrics[0],
-        #     "dice_score": metrics[1],
-        #     "threshold": threshold*100
-        # })
+        # Instantiating models
+        fcn = FCN()
+        unet = UNet()
+        unetsm = UnetSegmentationModel()
+        linknetsm = LinknetSegmentationModel()
 
-        return "under maintenance", 201
+        # applying prediction
+        prediction1 = fcn.predict(image, threshold=None)
+        prediction2 = unet.predict(image, threshold=None)
+        prediction3 = unetsm.predict(image, threshold=None)
+        # prediction4 = linknetsm.predict(image, threshold=None)
+        prediction = average_ensemble(prediction1, prediction2, prediction3)
+
+        # apply the best threshold on prediction
+        best_thresh = get_best_thresh(mask, prediction)
+        prediction = apply_threshold(prediction, best_thresh)
+
+        # Set the response dictionary
+        response = save_images(static_path, image, mask, prediction)
+        metrics = calculate_metrics(mask, prediction)
+        response.update({
+            "iou_score": metrics[1],
+            "dice_score": metrics[0],
+            "threshold": best_thresh * 100
+        })
+
+        return response, 201
     else:
         return 'Invalid file format. Please upload images in (TIF, JPEG, JPG, PNG, or GIF) format', 400
+

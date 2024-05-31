@@ -1,4 +1,5 @@
 import numpy as np
+from utilities.image_handler import apply_threshold
 
 
 # calculate IoU, and Dice
@@ -28,10 +29,15 @@ def calculate_metrics(y_true, y_pred):
     return dice, iou, precision, recall, f1_score
 
 
-def calculate_confidence(y_pred, threshold):
-    binary_mask = y_pred > threshold
-    confidence_scores = y_pred.flatten()
-    binary_mask_flat = binary_mask.flatten()
-    blood_vessel_confidences = confidence_scores[binary_mask_flat]
+def get_best_thresh(y, y_hat, metrics=calculate_metrics):
+    thresh = 0
+    best_score = -1
+    for i in range(50, 100, 10):
+        yhat = apply_threshold(y_hat, i/100)
+        metric = metrics(y, yhat)[0]
 
-    return np.mean(blood_vessel_confidences)
+        if metric > best_score:
+            best_score = metric
+            thresh = i / 100
+
+    return thresh

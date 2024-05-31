@@ -3,6 +3,10 @@ import numpy as np
 from globals import HOST, PORT
 
 
+def apply_threshold(nparr, thresh):
+    return (nparr > thresh).astype(np.uint8)
+
+
 def overlay_image(image, mask, opacity=0.8):
     if np.max(mask) == 0:
         return image.astype(np.uint8)  # Return the original image if the mask is blank (all zeros)

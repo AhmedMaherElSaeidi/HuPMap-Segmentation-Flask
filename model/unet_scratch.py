@@ -1,8 +1,8 @@
 import os
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras import layers, Model
 from utilities.utility import get_model_weights
-from utilities.metric import calculate_confidence
 
 
 class UNet:
@@ -92,10 +92,10 @@ class UNet:
 
         # Predict the probabilities for the input image
         prediction = self.model.predict(image)[0]
-        confidence = calculate_confidence(prediction, threshold)
+        prediction = tf.keras.activations.sigmoid(prediction).numpy()
 
         # Process predictions as needed
         if threshold:
             prediction = (prediction > threshold).astype(np.uint8)
 
-        return prediction, confidence
+        return prediction

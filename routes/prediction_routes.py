@@ -295,8 +295,8 @@ def predict_ensemble():
         prediction1 = fcn.predict(image, threshold=None)
         prediction2 = unet.predict(image, threshold=None)
         prediction3 = unetsm.predict(image, threshold=None)
-        # prediction4 = linknetsm.predict(image, threshold=None)
-        prediction = average_ensemble(prediction1, prediction2, prediction3)
+        prediction4 = linknetsm.predict(image, threshold=None)
+        prediction = average_ensemble(prediction1, prediction2, prediction3, prediction4)
 
         # apply the best threshold on prediction
         best_thresh = get_best_thresh(mask, prediction)

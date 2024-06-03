@@ -12,12 +12,12 @@ The goal is to segment instances of microvascular structures, including capillar
   - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
   - **Paths:**
-    - `image`
-    - `overlaid_image_true`
-    - `overlaid_image_pred`
-    - `true_mask`
-    - `predicted_mask`
-    - `overlaid_mask`
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
   - **Score Metrics:**
     - `IOU`: Intersection over Union score indicating the model's confidence.
     - `Dice`: The dice coefficient score indicates the model's confidence.
@@ -31,12 +31,12 @@ The goal is to segment instances of microvascular structures, including capillar
   - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
   - **Paths:**
-    - `image`
-    - `overlaid_image_true`
-    - `overlaid_image_pred`
-    - `true_mask`
-    - `predicted_mask`
-    - `overlaid_mask`
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
   - **Score Metrics:**
     - `IOU`: Intersection over Union score indicating the model's confidence.
     - `Dice`: The dice coefficient score indicates the model's confidence.
@@ -50,12 +50,12 @@ The goal is to segment instances of microvascular structures, including capillar
   - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
   - **Paths:**
-    - `image`
-    - `overlaid_image_true`
-    - `overlaid_image_pred`
-    - `true_mask`
-    - `predicted_mask`
-    - `overlaid_mask`
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
   - **Score Metrics:**
     - `IOU`: Intersection over Union score indicating the model's confidence.
     - `Dice`: The dice coefficient score indicates the model's confidence.
@@ -69,12 +69,12 @@ The goal is to segment instances of microvascular structures, including capillar
   - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
   - **Paths:**
-    - `image`
-    - `overlaid_image_true`
-    - `overlaid_image_pred`
-    - `true_mask`
-    - `predicted_mask`
-    - `overlaid_mask`
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
   - **Score Metrics:**
     - `IOU`: Intersection over Union score indicating the model's confidence.
     - `Dice`: The dice coefficient score indicates the model's confidence.

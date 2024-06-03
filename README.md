@@ -7,43 +7,98 @@ The goal is to segment instances of microvascular structures, including capillar
 
 ### `/predict/unet`
 - **Description:** API for predicting using the UNet model.
-- **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
+- **Input:**
+  - `image`: Kidney tissue image of shape `512x512x3`.
+  - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
-  - 6 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
-  - 2 score metrics to indicate confidence `IOU`, and `Dice`.
-  - Finally, the `threshold` at which the `predicted_mask` was binarized.
+  - **Paths:**
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
+  - **Score Metrics:**
+    - `IOU`: Intersection over Union score indicating the model's confidence.
+    - `Dice`: The dice coefficient score indicates the model's confidence.
+  - **Threshold:**
+    - `threshold`: The threshold at which the `predicted_mask` was binarized.
 
 ### `/predict/unet_scratch`
-- **Description:** API for predicting using a defined UNet model layers.
-- **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
+- **Description:** API for predicting using defined UNet model layers.
+- **Input:**
+  - `image`: Kidney tissue image of shape `512x512x3`.
+  - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
-  - 6 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
-  - 2 score metrics to indicate confidence `IOU`, and `Dice`.
-  - Finally, the `threshold` at which the `predicted_mask` was binarized.
+  - **Paths:**
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
+  - **Score Metrics:**
+    - `IOU`: Intersection over Union score indicating the model's confidence.
+    - `Dice`: The dice coefficient score indicates the model's confidence.
+  - **Threshold:**
+    - `threshold`: The threshold at which the `predicted_mask` was binarized.
   
 ### `/predict/linknet`
 - **Description:** API for predicting using LinkNet model.
-- **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
+- **Input:**
+  - `image`: Kidney tissue image of shape `512x512x3`.
+  - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
-  - 6 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
-  - 2 score metrics to indicate confidence `IOU`, and `Dice`.
-  - Finally, the `threshold` at which the `predicted_mask` was binarized.
+  - **Paths:**
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
+  - **Score Metrics:**
+    - `IOU`: Intersection over Union score indicating the model's confidence.
+    - `Dice`: The dice coefficient score indicates the model's confidence.
+  - **Threshold:**
+    - `threshold`: The threshold at which the `predicted_mask` was binarized.
 
 ### `/predict/fcn`
 - **Description:** API for predicting using FCN model.
-- **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
+- **Input:**
+  - `image`: Kidney tissue image of shape `512x512x3`.
+  - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
-  - 6 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
-  - 2 score metrics to indicate confidence `IOU`, and `Dice`.
-  - Finally, the `threshold` at which the `predicted_mask` was binarized.
+  - **Paths:**
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
+  - **Score Metrics:**
+    - `IOU`: Intersection over Union score indicating the model's confidence.
+    - `Dice`: The dice coefficient score indicates the model's confidence.
+  - **Threshold:**
+    - `threshold`: The threshold at which the `predicted_mask` was binarized.
 
 ### `/predict/ensemble`
 - **Description:** API for predicting using an ensemble of models.
-- **Input:** Kidney tissue image of shape `512x512x3`, and its corresponding mask of shape `512x512x1`.
+- **Input:**
+  - `image`: Kidney tissue image of shape `512x512x3`.
+  - `mask`: Corresponding mask of shape `512x512x1`. **Note:** The mask's pixel values must be 0 or 1 for proper functioning.
 - **Output:**
-  - 6 paths for the `image`, `overlaid_image_true`, `overlaid_image_pred`, `true_mask`, `predicted_mask`, and `overlaid_mask`.
-  - 2 score metrics to indicate confidence `IOU`, and `Dice`.
-  - Finally, the `threshold` at which the `predicted_mask` was binarized.
+  - **Paths:**
+    - `image`: Path to the input image.
+    - `overlaid_image_true`: Path to the image overlaid with the true mask.
+    - `overlaid_image_pred`: Path to the image overlaid with the predicted mask.
+    - `true_mask`: Path to the true mask.
+    - `predicted_mask`: Path to the predicted mask.
+    - `overlaid_mask`: Path to the overlaid mask.
+  - **Score Metrics:**
+    - `IOU`: Intersection over Union score indicating the model's confidence.
+    - `Dice`: The dice coefficient score indicates the model's confidence.
+  - **Threshold:**
+    - `threshold`: The threshold at which the `predicted_mask` was binarized.
 
 ## Installation
 To install the project dependencies, run the following command:

@@ -13,6 +13,12 @@ import cv2
 
 prediction_route = Blueprint("prediction_route", __name__)
 
+# Instantiating models
+fcn = FCN()
+unet = UNet()
+unetsm = UnetSegmentationModel()
+linknetsm = LinknetSegmentationModel()
+
 
 @prediction_route.route('/')
 def index():
@@ -59,7 +65,6 @@ def predict_unet():
 
         # time to make a prediction
         threshold = 0.5
-        unet = UnetSegmentationModel()
         prediction = unet.predict(image, threshold=threshold)
 
         # Set the response dictionary
@@ -116,7 +121,6 @@ def predict_linknet():
 
         # time to make a prediction
         threshold = 0.5
-        linknet = LinknetSegmentationModel()
         prediction = linknet.predict(image, threshold=threshold)
 
         # Set the response dictionary
@@ -173,7 +177,6 @@ def predict_fcn():
 
         # time to make a prediction
         threshold = 0.5
-        fcn = FCN()
         prediction = fcn.predict(image, threshold=threshold)
 
         # Set the response dictionary
@@ -230,7 +233,6 @@ def predict_unet_scratch():
 
         # time to make a prediction
         threshold = 0.5
-        unet = UNet()
         prediction = unet.predict(image, threshold=threshold)
 
         # Set the response dictionary
@@ -284,12 +286,6 @@ def predict_ensemble():
         # Add extra dimension to mask if it's not (512, 512, 1)
         if mask.ndim == 2:
             mask = np.expand_dims(mask, axis=-1)
-
-        # Instantiating models
-        fcn = FCN()
-        unet = UNet()
-        unetsm = UnetSegmentationModel()
-        linknetsm = LinknetSegmentationModel()
 
         # applying prediction
         prediction1 = fcn.predict(image, threshold=None)

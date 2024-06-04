@@ -124,4 +124,6 @@ To ensure the project runs smoothly, please follow these steps:
 
 Make sure to create these directories and add the necessary files before running the project.
 
+## UI
+Here you can find the implemented [User Interface](https://github.com/AhmedMaherElSaeidi/HuPMap-Segmentation-ReactJS).
 

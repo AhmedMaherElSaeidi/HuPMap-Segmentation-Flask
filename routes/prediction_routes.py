@@ -1,10 +1,10 @@
 from utilities.image_handler import save_images, apply_threshold
 from utilities.metric import calculate_metrics, get_best_thresh
+from utilities.ensemble import average_ensemble
 from model.linknet import LinknetSegmentationModel
 from model.unet import UnetSegmentationModel
-from model.unet_scratch import UNet
+from model.custom_unet import UNet
 from model.fcn import FCN
-from utilities.ensemble import average_ensemble
 from flask import Blueprint
 from flask import request
 import numpy as np
@@ -64,8 +64,11 @@ def predict_unet():
             mask = np.expand_dims(mask, axis=-1)
 
         # time to make a prediction
-        threshold = 0.5
-        prediction = unet.predict(image, threshold=threshold)
+        prediction = unetsm.predict(image, threshold=None)
+
+        # apply the best threshold on prediction
+        best_thresh = get_best_thresh(mask, prediction)
+        prediction = apply_threshold(prediction, best_thresh)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -73,7 +76,7 @@ def predict_unet():
         response.update({
             "iou_score": metrics[1],
             "dice_score": metrics[0],
-            "threshold": threshold * 100
+            "threshold": best_thresh * 100
         })
 
         return response, 201
@@ -120,8 +123,11 @@ def predict_linknet():
             mask = np.expand_dims(mask, axis=-1)
 
         # time to make a prediction
-        threshold = 0.5
-        prediction = linknet.predict(image, threshold=threshold)
+        prediction = linknetsm.predict(image, threshold=None)
+
+        # apply the best threshold on prediction
+        best_thresh = get_best_thresh(mask, prediction)
+        prediction = apply_threshold(prediction, best_thresh)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -129,7 +135,7 @@ def predict_linknet():
         response.update({
             "iou_score": metrics[1],
             "dice_score": metrics[0],
-            "threshold": threshold * 100
+            "threshold": best_thresh * 100
         })
 
         return response, 201
@@ -176,8 +182,11 @@ def predict_fcn():
             mask = np.expand_dims(mask, axis=-1)
 
         # time to make a prediction
-        threshold = 0.5
-        prediction = fcn.predict(image, threshold=threshold)
+        prediction = fcn.predict(image, threshold=None)
+
+        # apply the best threshold on prediction
+        best_thresh = get_best_thresh(mask, prediction)
+        prediction = apply_threshold(prediction, best_thresh)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -185,7 +194,7 @@ def predict_fcn():
         response.update({
             "iou_score": metrics[1],
             "dice_score": metrics[0],
-            "threshold": threshold * 100
+            "threshold": best_thresh * 100
         })
 
         return response, 201
@@ -232,8 +241,11 @@ def predict_unet_scratch():
             mask = np.expand_dims(mask, axis=-1)
 
         # time to make a prediction
-        threshold = 0.5
-        prediction = unet.predict(image, threshold=threshold)
+        prediction = unet.predict(image, threshold=None)
+
+        # apply the best threshold on prediction
+        best_thresh = get_best_thresh(mask, prediction)
+        prediction = apply_threshold(prediction, best_thresh)
 
         # Set the response dictionary
         response = save_images(static_path, image, mask, prediction)
@@ -241,7 +253,7 @@ def predict_unet_scratch():
         response.update({
             "iou_score": metrics[1],
             "dice_score": metrics[0],
-            "threshold": threshold * 100
+            "threshold": best_thresh * 100
         })
 
         return response, 201

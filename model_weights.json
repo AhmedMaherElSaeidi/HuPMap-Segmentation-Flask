@@ -1,8 +1,8 @@
 {
   "models": {
-    "fcn": "model/weights/fcn_weights.weights.keras",
-    "unet": "model/weights/unet_weights.weights.keras",
-    "linknet": "model/weights/linknet_weights.weights.keras",
-    "unet_scratch": "model/weights/unet_scratch_weights.weights.keras"
+    "fcn": "model/weights/fcn_weights.keras",
+    "unet": "model/weights/Unet_efficientnetb5_weights.keras",
+    "linknet": "model/weights/linknet_efficientnetb5_weights.keras",
+    "unet_scratch": "model/weights/Unet_weights.keras"
   }
 }

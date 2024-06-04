@@ -32,7 +32,7 @@ def calculate_metrics(y_true, y_pred):
 def get_best_thresh(y, y_hat, metrics=calculate_metrics):
     thresh = 0
     best_score = -1
-    for i in range(50, 100, 10):
+    for i in range(10, 100, 10):
         yhat = apply_threshold(y_hat, i/100)
         metric = metrics(y, yhat)[0]
 

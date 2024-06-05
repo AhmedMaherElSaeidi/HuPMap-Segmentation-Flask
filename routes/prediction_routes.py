@@ -1,6 +1,6 @@
 from utilities.image_handler import save_images, apply_threshold
 from utilities.metric import calculate_metrics, get_best_thresh
-from utilities.ensemble import average_ensemble
+from utilities.ensemble import average_ensemble, weighted_avg_ensemble, majority_voting_ensemble, maximum_probability_ensemble
 from model.linknet import LinknetSegmentationModel
 from model.unet import UnetSegmentationModel
 from model.custom_unet import UNet
@@ -304,6 +304,8 @@ def predict_ensemble():
         prediction2 = unet.predict(image, threshold=None)
         prediction3 = unetsm.predict(image, threshold=None)
         prediction4 = linknetsm.predict(image, threshold=None)
+
+        # average_ensemble, weighted_avg_ensemble, majority_voting_ensemble, maximum_probability_ensemble
         prediction = average_ensemble(prediction1, prediction2, prediction3, prediction4)
 
         # apply the best threshold on prediction

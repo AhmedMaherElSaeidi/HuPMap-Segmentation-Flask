@@ -1,5 +1,20 @@
 # HuBMAP - Hacking the Human Vasculature (BackEnd implementation using Flask)
 
+## Table of Contents
+
+- [HuBMAP - Hacking the Human Vasculature (BackEnd implementation using Flask)](#hubmap---hacking-the-human-vasculature-backend-implementation-using-flask)
+  - [Description](#description)
+  - [APIs](#apis)
+    - [/predict/unet](#predictunet)
+    - [/predict/unet_scratch](#predictunet_scratch)
+    - [/predict/linknet](#predictlinknet)
+    - [/predict/fcn](#predictfcn)
+    - [/predict/ensemble](#predictensemble)
+  - [Installation](#installation)
+    - [Additional Setup](#additional-setup)
+  - [Sample Data](#sample-data)
+  - [UI](#ui)
+    
 ## Description
 The goal is to segment instances of microvascular structures, including capillaries, arterioles, and venules, to automate the segmentation of microvasculature structures to improve researchers' understanding of how the blood vessels are arranged in human tissues.
 

@@ -119,6 +119,8 @@ The goal is to segment instances of microvascular structures, including capillar
 To install the project dependencies, run the following command:
 
 ```
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
 ```
 

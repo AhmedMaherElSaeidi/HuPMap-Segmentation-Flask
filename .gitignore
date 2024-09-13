@@ -2,7 +2,7 @@ venv
 .venv
 build
 .idea
-__pycache__
+__pycache__/
 model/weights/*
 !model/weights/
 !static/images/
